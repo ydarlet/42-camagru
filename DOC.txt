@@ -1,0 +1,5 @@
+/* PRINCIPES DE FONCTIONNEMENT DU SITE */
+
+1 - Première ouverture
+
+Si la BDD n'existe pas, le site la crée d'office.
