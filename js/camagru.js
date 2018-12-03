@@ -359,3 +359,10 @@ function snapshot() {
     // envoyer le tout au script php pour qu'il le traite
     // recharger le page
 }
+
+
+// function postPic() {
+//     console.log("postPic() ------ start");
+
+//     console.log("postPic() ------ end");
+// }

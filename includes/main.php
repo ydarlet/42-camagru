@@ -14,6 +14,8 @@
             include('includes/recovering.php');
         else if (isset($_GET['pwd']) && $_GET['pwd'] == '1')
             include('includes/pwd_reset.php');
+        else if (isset($_GET['setup']) && $_GET['setup'] == '1')
+            include('includes/setup.php');
         else
             include('includes/accueil_public.php');
     echo '</main>';

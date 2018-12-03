@@ -5,7 +5,7 @@
     function exist_username($username, $dbh)
     {
         try {
-            $sql =  'SELECT * from users WHERE username LIKE "' . $username . '"';
+            $sql =  'SELECT * from USERS WHERE username LIKE "' . $username . '"';
             $res = $dbh->query($sql);
             return ($res->rowCount());
         } catch (PDOException $e) {

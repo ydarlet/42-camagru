@@ -2,7 +2,7 @@
 
     /* CONFIG MAISON  */
     
-    $DB_DSN = 'mysql:host=localhost';
+    $DB_DSN = 'mysql:host=localhost;dbname=camagru';
     $DB_USER = 'root';
     $DB_PASSWORD = 'Root108#';
     

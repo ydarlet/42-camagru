@@ -62,6 +62,18 @@
         }
     }
 
+    function get_password($email, $dbh)
+    {
+        try {
+            $sql =  'SELECT password from USERS WHERE email LIKE "' . $email . '"';
+            $res = $dbh->query($sql);
+            return ($res);
+        } catch (PDOException $e) {
+            print " Get (get_password) -> Erreur !: " . $e->getMessage() . "<br/>";
+            die();
+        }
+    }
+
     /*
     $sql =  'SELECT * from users';
     foreach  ($dbh->query($sql) as $row) {

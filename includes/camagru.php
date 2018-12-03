@@ -24,14 +24,17 @@
       <br/>
       <button id="startbutton" disabled>Prendre une photo</button>
       <br/>
-      <button id="test" onClick="sendPost();">test_send_post</button>
-
-      <br/>
+      <!-- <button id="test" onClick="sendPost();">test_send_post</button> -->
+      <!-- <br/> -->
       <canvas id="canvas" style="display:none;"></canvas>
       <br/>
       <img src="" id="photo" alt="photo" style="display:visible;">
-      <br/><br/>
+      <!-- <br/><br/> -->
     </div>
+    <?php
+      if ((isset ($_POST['data'])) && ($_POST['data'] != NULL))
+        echo 'Oui DATA !';
+    ?>
   </div>
   <aside>
     <?php
@@ -119,7 +122,7 @@
       canvas.width = width;
       canvas.height = height;
       canvas.getContext('2d').drawImage(video, 0, 0, width, height);
-    canvas.getContext('2d').drawImage(filtre, (width - filtre.width) / 2, 0, filtre.width, filtre.height);
+      canvas.getContext('2d').drawImage(filtre, (width - filtre.width) / 2, 0, filtre.width, filtre.height);
 
       var data = canvas.toDataURL('image/png');
       photo.setAttribute('src', data);
@@ -140,9 +143,74 @@
       this.document.location.href = location;
     }
 
+    function createInstance()
+    {
+      var req = null;
+      if(window.XMLHttpRequest) {
+        req = new XMLHttpRequest();
+      }
+      else if (window.ActiveXObject) {
+        try {
+          req = new ActiveXObject("Msxml2.XMLHTTP");
+        } catch (e) {
+          try {
+            req = new ActiveXObject("Microsoft.XMLHTTP");
+            } catch (e) {
+                alert("XHR not created");
+              }
+          }
+        }
+        return req;
+    }
+
+        function storing(data)
+    {
+        var element = document.getElementById('storage');
+        element.innerHTML = data;
+    }
+
+    function postPic()
+    {
+      console.log("postPic() ------ start");
+      var data = 'data=' + photo.getAttribute('src');
+      console.log(data);
+      var req =  createInstance();
+      req.onreadystatechange = function()
+      { 
+        if(req.readyState == 4)
+        {
+                if(req.status != 200)
+                  //storing(req.responseText);	
+                //else	
+                  alert("Error: returned status code " + req.status + " " + req.statusText);
+        }
+      }
+      req.open("POST", "index.php?parametres=1", true); 
+      req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      req.send(data);
+      location.reload();
+    }
+
     startbutton.addEventListener('click', function(ev){
         console.log('snap_pris');
       takepicture();
+      postPic();
+
+
+      // var xhr = new XMLHttpRequest();
+      // xhr.open("POST", 'http://localhost/~yanndarlet/42/42-camagru/index.php?camagru=1', true);
+      // xhr.setRequestHeader('Content-Type', 'application/json');
+      // xhr.send(JSON.stringify({
+      //     epsilon: 'delta'
+      // }));
+
+      // var xhr = new XMLHttpRequest();
+      // xhr.open("POST", 'http://localhost/~yanndarlet/42/42-camagru/index.php?parametres=1', true);
+      // xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+      // xhr.send('someStuff');
+
+
+
       // var photo = document.getElementById('photo');
       // httpGet(window.location.href + '&snap=' + photo.src);
       // httpGet(window.location.href + '&snap=done');
